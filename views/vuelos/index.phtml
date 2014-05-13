@@ -1,0 +1,30 @@
+<?php 
+if (Session::get('autenticado') && (Session::get('ReservesPendents')==0)){
+?>
+<form class="form2" name="form2" method="post" action="" style="margin: 0 auto; width: 230px; margin-left: 260px;">
+    <input type="submit" class="button_reserva" value="+ EMPEZAR NUEVA RESERVA">
+    <input type="hidden" value="1" name="EmpezarReserva" />
+</form>
+<?php
+    }
+?>      <!--BOTON PARA CREAR RESERVA SI NO EXISTE-->
+
+<?php print_r($this->numvuelos);?>     <!--Actualmente disponemos de BLA BLA ofertas...-->
+
+<!--EMPIEZA BUCLE PARA MOSTRAR VUELOS-->
+<?php if(isset($this->vuelos)): ?>
+    <?php for($i=0; $i<count($this->vuelos); $i++): ?>
+        <div style="background-color: #c8cef4; width: 240px; box-shadow:3px 3px 3px; display: inline-block; text-align: center; padding: 10px; margin-bottom: 20px; margin-left: 3px; border-radius: 10px">
+            <?php echo $this->vuelos[$i]['aeroport']; ?> &rarr; <?php echo $this->vuelos[$i]['dest']; ?>
+            <hr align="center" noshade="noshade" size="2" width="90%" />
+            <img src="<?php echo $_layoutParams['ruta_img']; ?><?php echo $this->vuelos[$i]['id']; ?>.jpg" width="230px" style="padding-bottom:10px; padding-top:10px;" />
+            PRECIO: <?php echo $this->vuelos[$i]['preu']; ?>€
+            <?php if(Session::get('autenticado') && (Session::get('ReservesPendents')==1)): ?>
+                <form class="form1" name="form1" method="post" action="">
+                    <input type="hidden" value="<?php echo $this->vuelos[$i]['id']; ?>" name="reservar" />
+                    <input id="<?php echo $this->vuelos[$i]['id']; ?>" class="button_reserva" type="submit" value="RESERVAR AHORA" style="margin-top: 15px;"/>
+                </form>
+            <?php endif; ?>
+        </div>
+    <?php endfor; ?>
+<?php endif; ?>

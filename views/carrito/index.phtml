@@ -1,0 +1,41 @@
+<?php $TOTAL = 0;?>
+
+<h2>Resumen del carrito</h2>
+
+<table>
+    <tr>
+        <th>Producte</th>
+        <th>Quantitat</th>
+        <th>Preu/unitat</th>
+        <th>Total</th>
+    </tr>
+    <?php if(isset($this->carrito)): ?>
+        <?php if(!Session::get('ReservaPagada')): ?>
+            <?php for($i=0; $i<count($this->carrito); $i++): 
+                $totalSV = $this->carrito[$i][3]*$this->carrito[$i][7];
+                $TOTAL += $totalSV;?>
+                <tr>
+                    <td><?php echo $this->carrito[$i][0]; ?></td>
+                    <td><?php echo $this->carrito[$i][3]; ?></td>
+                    <td><?php echo $this->carrito[$i][7]; ?></td>
+                    <td><?php echo number_format($totalSV, 2, '.', ''); ?></td>
+                </tr>
+            <?php endfor; ?>
+        <?php endif; ?>
+    <?php endif; ?>
+</table>
+
+<h4><?php echo 'Subtotal (IVA no incl.) '.$TOTAL.' €'?></h4>
+
+<h3 style="color: green"><?php echo 'TOTAL (21% IVA incl.) '.round($TOTAL*1.21,2).' €'?></h3>
+
+<?php if(!Session::get('ReservaPagada'))
+    { 
+?>
+    <form class="formpagar" name="formpagar" method="post" action="">
+        <input type="hidden" value="1" name="pagar" />
+        <input id="pagar" class="button_reserva" type="submit" value="PAGAR AHORA"/>
+    </form>
+<?php 
+    }
+?>

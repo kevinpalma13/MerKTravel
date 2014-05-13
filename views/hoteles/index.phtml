@@ -1,0 +1,46 @@
+<?php 
+if (Session::get('autenticado') && (Session::get('ReservesPendents')==0)){
+?>
+<form class="form2" name="form2" method="post" action="" style="margin: 0 auto; width: 230px; margin-left: 260px;">
+    <input type="submit" class="button_reserva" value="+ EMPEZAR NUEVA RESERVA">
+    <input type="hidden" value="1" name="EmpezarReserva" />
+</form>
+<?php
+    }
+?>      <!--BOTON PARA CREAR RESERVA SI NO EXISTE-->
+
+<?php print_r($this->numhoteles);?>     <!--Actualmente disponemos de BLA BLA ofertas...-->
+
+<!--EMPIEZA BUCLE PARA MOSTRAR HOTELES-->
+<?php if(isset($this->hoteles)): ?>
+    <?php for($i=0; $i<count($this->hoteles); $i++): ?>
+        <div style="background-color: #c8cef4; width: 90%; box-shadow:3px 3px 3px; display: inline-block; padding: 10px; margin-bottom: 20px; margin-left: 3px; border-radius: 10px">
+            <p style="text-align: center"><?php echo $this->hoteles[$i]['nom']; ?> (<?php echo $this->hoteles[$i]['ciutat']; ?>)</p>
+            <hr align="center" noshade="noshade" size="2" width="90%" />
+            <img src="<?php echo $_layoutParams['ruta_img']; ?><?php echo $this->hoteles[$i]['id']; ?>.jpg" width="230px" style="padding-bottom:10px; padding-top:10px; margin-left: 40px" />
+            PRECIO: <?php echo $this->hoteles[$i]['preu']; ?>€
+            <?php if(Session::get('autenticado') && (Session::get('ReservesPendents')==1)): ?>
+                <form class="form1" name="form1" method="post" action="">
+                    <input type="hidden" value="<?php echo $this->hoteles[$i]['id']; ?>" name="reservar" />
+                    <input id="<?php echo $this->hoteles[$i]['id']; ?>" class="button_reserva" type="submit" value="RESERVAR AHORA" style="margin-top: 15px; margin-left: 40px"/>
+                </form>
+            <?php endif; ?>
+            <div id="my_map<?php echo $this->hoteles[$i]['id']; ?>" style="width:280px; height:180px; display: inline-block; margin-left: 420px; margin-top: -220px; vertical-align: top"></div>
+        </div>
+        
+        <script>
+            $("#my_map<?php echo $this->hoteles[$i]['id']; ?>").gmap3({
+            map:{
+                options:{
+                 center: [<?php echo $this->hoteles[$i]['latitud']; ?>,<?php echo $this->hoteles[$i]['longitud']; ?>],
+                 zoom: 14
+                }
+             },            
+            marker:{
+                    latLng:[<?php echo $this->hoteles[$i]['latitud']; ?>,<?php echo $this->hoteles[$i]['longitud']; ?>]
+                 }
+            });
+        </script>
+
+    <?php endfor; ?>
+<?php endif; ?>

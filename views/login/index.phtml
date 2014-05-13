@@ -1,0 +1,16 @@
+<h2>Iniciar Sesi&oacute;n</h2>
+
+<form class="form1" name="form1" method="post" action="">
+    <input type="hidden" value="1" name="enviar" />
+    <p>
+        <input type="text" placeholder="Usuario" name="usuario" value="<?php if(isset($this->datos)) echo $this->datos['usuario']; ?>" />
+    </p>
+    
+    <p>
+        <input type="password" placeholder="Password" name="pass" />
+    </p>
+    
+    <p>
+        <input class="button" type="submit" value="Entrar" />
+    </p>
+</form>

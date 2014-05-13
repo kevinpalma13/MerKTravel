@@ -1,0 +1,35 @@
+<?php 
+if (Session::get('autenticado') && (Session::get('ReservesPendents')==0)){
+?>
+<form class="form2" name="form2" method="post" action="" style="margin: 0 auto; width: 230px; margin-left: 260px;">
+    <input type="submit" class="button_reserva" value="+ EMPEZAR NUEVA RESERVA">
+    <input type="hidden" value="1" name="EmpezarReserva" />
+</form>
+<?php
+    }
+?>      <!--BOTON PARA CREAR RESERVA SI NO EXISTE-->
+
+<?php print_r($this->numplanes);?>     <!--Actualmente disponemos de BLA BLA ofertas...-->
+
+<!--EMPIEZA BUCLE PARA MOSTRAR HOTELES-->
+<?php if(isset($this->planes)): ?>
+    <?php for($i=0; $i<count($this->planes); $i++): ?>
+        <div style="background-color: #c8cef4; width: 90%; box-shadow:3px 3px 3px; display: inline-block; text-align: center; padding: 10px; margin-bottom: 20px; margin-left: 3px; border-radius: 10px">
+            <?php echo $this->planes[$i]['titol']; ?>
+            <hr align="center" noshade="noshade" size="2" width="90%" />
+            <div style="text-align: left; width: 230px; display: inline-block">
+                <img src="<?php echo $_layoutParams['ruta_img']; ?><?php echo $this->planes[$i]['id']; ?>.jpg" width="230px" />
+            </div>
+            <div style="display: inline-block; text-align: justify; width: 420px; vertical-align: top; margin-left: 10px;">
+                <?php echo $this->planes[$i]['descrip']; ?>
+                <p>PRECIO: <?php echo $this->planes[$i]['preu']; ?>€</p>
+            </div>
+            <?php if(Session::get('autenticado') && (Session::get('ReservesPendents')==1)): ?>
+                <form class="form1" name="form1" method="post" action="">
+                    <input type="hidden" value="<?php echo $this->planes[$i]['id']; ?>" name="reservar" />
+                    <input id="<?php echo $this->planes[$i]['id']; ?>" class="button_reserva" type="submit" value="RESERVAR AHORA" style="margin-top: -40px; margin-left: 10px"/>
+                </form>
+            <?php endif; ?>
+        </div>
+    <?php endfor; ?>
+<?php endif; ?>

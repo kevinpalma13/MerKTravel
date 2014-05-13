@@ -1,0 +1,26 @@
+<h2>Reg&iacute;strate</h2>
+
+<form class="form1" name="form1" method="post" action="">
+    <input type="hidden" value="1" name="enviar" />
+    <p>
+        <input type="text" required="" placeholder="Nombre" name="nombre" value="<?php if(isset($this->datos)) echo $this->datos['nombre']; ?>" />
+    </p>
+    <p>
+        <input type="text" required="" placeholder="Apellidos" name="apellidos" value="<?php if(isset($this->datos)) echo $this->datos['apellidos']; ?>" />
+    </p>
+    <p>
+        <input type="text" required="" placeholder="Nombre de usuario" name="usuario" value="<?php if(isset($this->datos)) echo $this->datos['usuario']; ?>" />
+    </p>
+    <p>
+        <input type="email" required="" placeholder="email@email.com" name="email" value="<?php if(isset($this->datos)) echo $this->datos['email']; ?>" />
+    </p>
+    <p>
+        <input type="password" required="" placeholder="Password" name="pass" />
+    </p>
+    <p>
+        <input type="password" required="" placeholder="Confirmar Password" name="confirmar" />
+    </p>
+    <p>
+        <input class="button" type="submit" value="Regístrate" />
+    </p>
+</form>
